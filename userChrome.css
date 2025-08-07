@@ -929,32 +929,23 @@ tab,
 /* SIDE BAR */
 
 /* Expand Side bar on hover */
-
 #sidebar-box {
-  --sidebar-width: 60px;
+  --sidebar-width: 40px;
   --sidebar-hover-width: 400px;
-  position: fixed !important;
-  left: 0;
-  top: 2.5%;
-  bottom: 0;
-  z-index: 3 !important;
-  min-width: 60px !important;
-  max-width: 400px !important;
-  box-sizing: border-box;
+  position: relative !important; /* Changed back to relative */
+  min-width: var(--sidebar-width) !important;
   width: var(--sidebar-width) !important;
+  max-width: var(--sidebar-width) !important; /* Keep collapsed width when not hovered */
   background: transparent !important;
   opacity: 0.8;
   border-radius: 15px !important;
-  overflow: hidden;
-  transition:
-  width 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-  transform 0.3s ease;
-  transform: translateX(-10px);
+  overflow: visible !important; /* Allow content to overflow when expanded */
+  transition: max-width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 3 !important;
 }
 
 #sidebar-box:hover {
-  transform: translateX(0);
-  width: var(--sidebar-hover-width) !important;
+  max-width: var(--sidebar-hover-width) !important; /* Only expand max-width on hover */
 }
 
 #sidebar-box,
@@ -1215,8 +1206,32 @@ tab,
   text-align: center !important;
 }
 
-.browserStack {
-  margin-left: 40px !important;
+#sidebar-box #sidebar,
+#sidebar-box #webextpanels-window {
+  width: var(--sidebar-width) !important;
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative !important;
+  z-index: 4 !important;
+}
+
+#sidebar-box:hover #sidebar,
+#sidebar-box:hover #webextpanels-window {
+  width: var(--sidebar-hover-width) !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  height: 100% !important;
+}
+
+#sidebar-box,
+#sidebar,
+#webextpanels-window,
+.browser-sidebar2 {
+  background: transparent !important;
+}
+
+#sidebar-box {
+  opacity: 0.9;
 }
 
 #main-window[inFullscreen] .browserStack {
